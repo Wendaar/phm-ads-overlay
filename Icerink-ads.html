@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PHM Ads Rotation</title>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#ads {
+    width: 100vw;
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+<div id="ads"></div>
+
+<script>
+// Seznam rotací (obrázek + délka)
+const ads = [
+    // 3 minuty nic
+    { src: "", duration: 3000 },
+
+    // Reklama 1 – 5 minut
+    { 
+        src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-Icerink-fascia-papousek-nophmcircle.png?raw=true",
+        duration: 3000
+    },
+
+    // 3 minuty nic
+    { src: "", duration: 3000 },
+
+    // Reklama 2 – 3 minuty
+    {
+        src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-icerink-powerade-bauer-nophmcircle.png?raw=true",
+        duration: 3000
+    },
+
+    // 3 minuty nic
+    { src: "", duration: 3000 },
+
+    // Reklama 3 – 3 minuty
+    {
+        src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-Icerink-kve-vycerpame-nophmcircle.png?raw=true",
+        duration: 3000
+    },
+
+    // 3 minuty nic
+    { src: "", duration: 3000 },
+
+    // Reklama 2 – 3 minuty
+    {
+        src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-Icerink-octopus-bauiq-nophmcircle.png?raw=true",
+        duration: 3000
+    },
+];
+
+// Rotace
+let index = 0;
+function rotateAds() {
+    const element = document.getElementById("ads");
+
+    if (ads[index].src === "") {
+        // Prázdná fáze = absolutní průhlednost
+        element.style.backgroundImage = "none";
+    } else {
+        element.style.backgroundImage = `url('${ads[index].src}')`;
+    }
+
+    setTimeout(() => {
+        index = (index + 1) % ads.length;
+        rotateAds();
+    }, ads[index].duration);
+}
+
+rotateAds();
+</script>
+
+</body>
+</html>
+
