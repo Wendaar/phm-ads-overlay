@@ -1,22 +1,52 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
+<title>PHM Ads Rotation</title>
 
-<img id="ads"
-      src="https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true"
-      alt="Ad overlay">
-  </div>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+        background: black;
+    }
 
-  <script>
+    #ad {
+        width: 1920px;
+        height: 1080px;
+        object-fit: contain;  /* přesné zachování poměru */
+        pointer-events: none;
+    }
+</style>
+
+</head>
+<body>
+
+<img id="ad" src="" alt="Advertisement">
+
+<script>
+    // Sem vložíš všechny své obrázky z GitHubu
     const ads = [
-      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true",
-      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true",
-      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true"
+        "https://raw.githubusercontent.com/Wendaar/PHM/main/OBS%20layout%20Relamy%20Test%201.png",
+        "https://raw.githubusercontent.com/Wendaar/PHM/main/OBS%20layout%20Relamy%20Test%202.png",
+        "https://raw.githubusercontent.com/Wendaar/PHM/main/OBS%20layout%20Relamy%20Test%203.png"
+        // můžeš přidávat další...
     ];
 
     let index = 0;
+
+    // Zobraz první reklamu
+    document.getElementById("ad").src = ads[index];
+
+    // Automatická rotace reklam
     setInterval(() => {
-      index = (index + 1) % ads.length;
-      document.getElementById("ads").src = ads[index];
-    }, 5 * 60 * 1000); // každých 5 minut
-  </script>
+        index = (index + 1) % ads.length;
+        document.getElementById("ad").src = ads[index];
+    }, 5 * 60 * 1000); // každých 5 minut (můžeš upravit)
+</script>
+
 </body>
+</html>
