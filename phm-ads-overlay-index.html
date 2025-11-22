@@ -1,0 +1,59 @@
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  #container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  #ads {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* NE stretch */
+    pointer-events: none;
+  }
+</style>
+
+<body>
+  <div id="container">
+    <!-- Infografika z HMS -->
+    <iframe src="https://prod.hms.wootera.net/obs/game?id=622D8C75-76F6-11F0-91EB-CF578048E3ED" frameborder="0"></iframe>
+
+    <!-- Reklamní overlay -->
+    <img id="ads"
+      src="https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true"
+      alt="Ad overlay">
+  </div>
+
+  <script>
+    const ads = [
+      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true",
+      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true",
+      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true"
+    ];
+
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % ads.length;
+      document.getElementById("ads").src = ads[index];
+    }, 5 * 60 * 1000); // každých 5 minut
+  </script>
+</body>
