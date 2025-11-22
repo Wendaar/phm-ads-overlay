@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<img id="ads"
+      src="https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true"
+      alt="Ad overlay">
+  </div>
+
+  <script>
+    const ads = [
+      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true",
+      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true",
+      "https://github.com/Wendaar/PHM/blob/main/OBS%20layout%20Relamy%20Test%201.png?raw=true"
+    ];
+
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % ads.length;
+      document.getElementById("ads").src = ads[index];
+    }, 5 * 60 * 1000); // každých 5 minut
+  </script>
+</body>
