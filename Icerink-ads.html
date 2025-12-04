@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PHM Ads Rotation</title>
+<title>PHM Ads Rotation + GNB corner logo</title>
 <style>
 html, body {
     margin: 0;
@@ -13,6 +13,7 @@ html, body {
     overflow: hidden;
 }
 
+/* PŮVODNÍ VRSTVA – velké fullscreen reklamy */
 #ads {
     width: 100vw;
     height: 100vh;
@@ -21,74 +22,126 @@ html, body {
     background-position: center;
     pointer-events: none;
 }
+
+/* NOVÁ VRSTVA – logo GNB vpravo dole */
+#gnb {
+    position: fixed;
+    bottom: 20px;     /* posun od spodní hrany */
+    right: 20px;      /* posun od pravé hrany */
+    width: 420px;     /* uprav podle potřeby */
+    height: 240px;    /* uprav podle potřeby */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    pointer-events: none;
+}
 </style>
 </head>
 
 <body>
+<!-- velké rotující reklamy -->
 <div id="ads"></div>
 
+<!-- roh GNB -->
+<div id="gnb"></div>
+
 <script>
+/* ===========================
+   1) PŮVODNÍ ROTACE REKLAM
+   =========================== */
+
 // Seznam rotací (obrázek + délka)
 const ads = [
     // 3 minuty nic
-    { src: "", duration: 120000 },
+    { src: "", duration: 600 },
 
-    // Reklama 1 – 5 minut
+    // Reklama 1
     { 
         src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-Icerink-fascia-papousek-nophmcircle.png?raw=true",
-        duration: 60000
+        duration: 600
     },
 
     // 3 minuty nic
-    { src: "", duration: 120000 },
+    { src: "", duration: 600 },
 
-    // Reklama 2 – 3 minuty
+    // Reklama 2
     {
         src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-icerink-powerade-bauer-nophmcircle.png?raw=true",
-        duration: 60000
+        duration: 600
     },
 
     // 3 minuty nic
-    { src: "", duration: 120000 },
+    { src: "", duration: 600 },
 
-    // Reklama 3 – 3 minuty
+    // Reklama 3
     {
         src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-Icerink-kve-vycerpame-nophmcircle.png?raw=true",
-        duration: 60000
+        duration: 600
     },
 
     // 3 minuty nic
-    { src: "", duration: 120000 },
+    { src: "", duration: 600 },
 
-    // Reklama 2 – 3 minuty
+    // Reklama 4
     {
         src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-Icerink-octopus-bauiq-nophmcircle.png?raw=true",
-        duration: 60000
+        duration: 600
     },
 ];
 
-// Rotace
-let index = 0;
+// Rotace velkých reklam
+let adsIndex = 0;
 function rotateAds() {
     const element = document.getElementById("ads");
+    const current = ads[adsIndex];
 
-    if (ads[index].src === "") {
-        // Prázdná fáze = absolutní průhlednost
+    if (!current.src) {
         element.style.backgroundImage = "none";
     } else {
-        element.style.backgroundImage = `url('${ads[index].src}')`;
+        element.style.backgroundImage = `url('${current.src}')`;
     }
 
     setTimeout(() => {
-        index = (index + 1) % ads.length;
+        adsIndex = (adsIndex + 1) % ads.length;
         rotateAds();
-    }, ads[index].duration);
+    }, current.duration);
 }
 
+/* ===========================
+   2) GNB CORNER LOGO
+   =========================== */
+
+// 2 minuty nic, 1 minuta logo GNB, opakovat
+const gnbSequence = [
+    { show: false, duration: 600 }, // 2 minuty nic
+    { 
+        show: true,
+        duration: 600,               // 1 minuta logo
+        src: "https://github.com/Wendaar/phm-ads-overlay/blob/main/ads-icerink-gnb_big.png?raw=true"
+    }
+];
+
+let gnbIndex = 0;
+function rotateGnb() {
+    const el = document.getElementById("gnb");
+    const current = gnbSequence[gnbIndex];
+
+    if (!current.show) {
+        el.style.backgroundImage = "none";
+    } else {
+        el.style.backgroundImage = `url('${current.src}')`;
+    }
+
+    setTimeout(() => {
+        gnbIndex = (gnbIndex + 1) % gnbSequence.length;
+        rotateGnb();
+    }, current.duration);
+}
+
+/* Spuštění obou rotací */
 rotateAds();
+rotateGnb();
 </script>
 
 </body>
 </html>
-
-
